@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/stay_on_uat/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="flutter_application_2">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <title>Stay On</title>
+  <link rel="manifest" href="manifest.json">
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBEP447TPNXuu50J3UxRwQXQ6KDvy8vQY&libraries=drawing,visualization,places,marker,localContext,journeySharing,geometry"></script>
+</head>
+
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+  <script type="text/javascript">
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js";
+  </script>
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+  <!-- Firebase Messaging -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+
+  <script>
+    var firebaseConfig = {
+      apiKey: 'AIzaSyDbFwXZOzFi4Y9DlUIOEAXUNBN2jNY_sGo',
+      authDomain: 'stayon-51caa.firebaseapp.com',
+      projectId: 'stayon-51caa',
+      storageBucket: 'stayon-51caa.appspot.com',
+      messagingSenderId: "1007201296541",
+      appId: '1:1007201296541:web:4d71882f97246887793474'
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey("BFoFAaHFhP7V9bhBgJ_C2O9iCddNzNW_VOHTD9yn--RzzEPR6l0UkVc8xGi--kMEbxYrql7yfCG5NvEt_yQ2QcU")
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+
+          try {
+            navigator.serviceWorker.addEventListener('message', (event) => {
+              // post message to application
+              window.postMessage(JSON.stringify(event.data));
+            });
+          } catch (error) {
+            console.error('Error adding message listener:', error);
+          }
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+  <script>
+    window.opener.postMessage({
+      'flutter-web-auth': window.location.href
+    }, window.location.origin);
+    window.close();
+  </script>
+</body>
+
+</html>
